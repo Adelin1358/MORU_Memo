@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class UserController {
 
-
-
     @GetMapping("/join")
     public String joinForm(){
         return "user/join";
     }
+
+
 
 }
