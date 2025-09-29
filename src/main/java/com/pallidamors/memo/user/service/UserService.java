@@ -1,6 +1,8 @@
 package com.pallidamors.memo.user.service;
 
 import com.pallidamors.memo.common.MD5HashingEncoder;
+import com.pallidamors.memo.common.SHA256HashiEncoder;
+import com.pallidamors.memo.user.domain.User;
 import com.pallidamors.memo.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class UserService {
             , String name
             , String email) {
 
-         String encodePassword = MD5HashingEncoder.encode(password);
+         String encodePassword = SHA256HashiEncoder.encode(password);
 
         int count = userRepository.insertUser(loginId, encodePassword, name, email);
 
@@ -34,4 +36,12 @@ public class UserService {
             return false;
         }
     }
+
+
+    public User getUser(String loginId, String password) {
+        String encodedPassword = SHA256HashiEncoder.encode(password);
+
+        return userRepository.selectUser(loginId, encodedPassword);
+    }
+
 }
